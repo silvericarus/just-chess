@@ -1,0 +1,16 @@
+.black_cell{
+	background-color: #3B3B3B;
+}
+
+.white_cell{
+	background-color: #FEF7DF;
+}
+
+.cell{
+	height: 40px;
+	width: 40px;
+}
+
+#board{
+	margin: auto;
+}
