@@ -14,3 +14,10 @@
 #board{
 	margin: auto;
 }
+
+.piece{
+	height: 30px;
+	width: 30px;
+	margin: auto;
+	display: block;
+}
