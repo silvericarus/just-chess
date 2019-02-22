@@ -29,7 +29,12 @@ function drop(event){
 	let data = event.dataTransfer.getData("text");
 	let elementdata = document.getElementById(data);
 	if (elementdata.classList.contains("pawn")) {
-		var pawn = new Pawn("white","drag(event)");
+		if(elementdata.classList.contains("black")){
+			var pawn = new Pawn("black","drag(event)");
+		}else{
+			var pawn = new Pawn("white","drag(event)");
+		}
+		
 		if (pawn.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
 			event.target.appendChild(elementdata);
 		}

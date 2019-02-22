@@ -1,3 +1,20 @@
+function destroyPiece(position_destiny,color){
+	let cell = document.getElementById(position_destiny);
+
+	let graveyard = document.getElementById("grave");
+
+	let piece = cell.getElementsByClassName(color)[0];
+
+	let img = document.createElement("img");
+
+	img.setAttribute("src",piece.src);
+
+	img.classList.add(color);
+
+	graveyard.appendChild(img);
+
+	cell.removeChild(piece);
+}
 //Pieces definition
 function Pawn(color,funcion_drag){
 	if(color=="white"){
@@ -10,13 +27,21 @@ function Pawn(color,funcion_drag){
 		let pos_orig = position.split(",");
 		let pos_new = position_destiny.split(",");
 		if (color=="white") {
-			if(Math.abs(pos_new[0]-pos_orig[0])==1 || (pos_new[0]-pos_orig[0])==1 && (pos_new[1]-pos_orig[1])==1 || (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img").hasClass("black"))){
+			if(Math.abs(pos_new[0]-pos_orig[0])==1 || (pos_new[0]-pos_orig[0])==1 && (pos_new[1]-pos_orig[1])==1){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
+					destroyPiece(position_destiny,"black");
+				}
 				return true;
 			}else{
 				return false;
 			}
 		}else{
-			if(Math.abs(pos_new[0]-pos_orig[0])==1 || (pos_new[0]-pos_orig[0])==1 && (pos_new[1]-pos_orig[1])==1 || (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img").hasClass("white"))){
+			if(Math.abs(pos_new[0]-pos_orig[0])==1 || (pos_new[0]-pos_orig[0])==1 && (pos_new[1]-pos_orig[1])==1){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
+					destroyPiece(position_destiny,"white");
+				}
 				return true;
 			}else{
 				return false;

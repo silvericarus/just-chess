@@ -21,3 +21,15 @@
 	margin: auto;
 	display: block;
 }
+
+#grave{
+	display:flex;
+}
+
+.black{
+	align-self: flex-start;
+}
+
+.white{
+	align-self: flex-end;
+}
