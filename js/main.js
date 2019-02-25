@@ -16,6 +16,34 @@ function genBlackPawns() {
 	}
 }
 
+function genWhiteRooks(){
+	let celda1 = document.getElementById("8,1");
+	let celda2 = document.getElementById("8,8");
+
+	let rook1 = new Rook("white","drag(event)");
+	let rook2 = new Rook("white","drag(event)");
+
+	var img1 = rook1.genPiece("1");
+	var img2 = rook2.genPiece("8");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+
+function genBlackRooks(){
+	let celda1 = document.getElementById("1,1");
+	let celda2 = document.getElementById("1,8");
+
+	let rook1 = new Rook("black","drag(event)");
+	let rook2 = new Rook("black","drag(event)");
+
+	var img1 = rook1.genPiece("1");
+	var img2 = rook2.genPiece("8");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+
 function drag(e) {
 	e.dataTransfer.setData("text", event.target.id);
 }
@@ -36,6 +64,16 @@ function drop(event){
 		}
 		
 		if (pawn.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			event.target.appendChild(elementdata);
+		}
+	}else if(elementdata.classList.contains("rook")){
+		if(elementdata.classList.contains("black")){
+			var rook = new Rook("black","drag(event)");
+		}else{
+			var rook = new Rook("white","drag(event)");
+		}
+		
+		if (rook.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
 			event.target.appendChild(elementdata);
 		}
 	}
@@ -74,6 +112,8 @@ window.onload = function(){
 	drawBoard();
 	genWhitePawns();
 	genBlackPawns();
+	genWhiteRooks();
+	genBlackRooks();
 }
 	
 
