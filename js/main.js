@@ -44,6 +44,34 @@ function genBlackRooks(){
 	celda2.appendChild(img2);
 }
 
+function genWhiteBishops() {
+	let celda1 = document.getElementById("8,3");
+	let celda2 = document.getElementById("8,6");
+
+	let bishop1 = new Bishop("white","drag(event)");
+	let bishop2 = new Bishop("white","drag(event)");
+
+	var img1 = bishop1.genPiece("3");
+	var img2 = bishop2.genPiece("6");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+
+function genBlackBishops() {
+	let celda1 = document.getElementById("1,3");
+	let celda2 = document.getElementById("1,6");
+
+	let bishop1 = new Bishop("black","drag(event)");
+	let bishop2 = new Bishop("black","drag(event)");
+
+	var img1 = bishop1.genPiece("3");
+	var img2 = bishop2.genPiece("6");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+
 function drag(e) {
 	e.dataTransfer.setData("text", event.target.id);
 }
@@ -74,6 +102,16 @@ function drop(event){
 		}
 		
 		if (rook.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			event.target.appendChild(elementdata);
+		}
+	}else if(elementdata.classList.contains("bishop")){
+		if(elementdata.classList.contains("black")){
+			var bishop = new Bishop("black","drag(event)");
+		}else{
+			var bishop = new Bishop("white","drag(event)");
+		}
+		
+		if (bishop.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
 			event.target.appendChild(elementdata);
 		}
 	}
@@ -114,6 +152,8 @@ window.onload = function(){
 	genBlackPawns();
 	genWhiteRooks();
 	genBlackRooks();
+	genWhiteBishops();
+	genBlackBishops();
 }
 	
 
