@@ -119,3 +119,53 @@ function Rook(color,funcion_drag) {
 		return img;
 	}
 }
+
+function Bishop(color,funcion_drag) {
+	if(color=="white"){
+		this.image="img/bishop_w.png";	
+	}else{
+		this.image="img/bishop_b.png";
+	}
+	
+	this.checkMove = function (position,position_destiny) {
+		let pos_orig = position.split(",");
+		let pos_new = position_destiny.split(",");
+		if (color=="white") {
+			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1]){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
+					destroyPiece(position_destiny,"black");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1] ){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
+					destroyPiece(position_destiny,"white");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+	}
+
+	this.genPiece = function(i){
+		var img = document.createElement("img");
+		img.setAttribute("src",this.image);
+		img.setAttribute("draggable","true");
+		img.setAttribute("ondragstart",funcion_drag);
+		if(color=="white"){
+			img.classList.add("piece","bishop","white");
+			img.setAttribute("id","bishopw"+i);
+		}else{
+			img.classList.add("piece","bishop","black");
+			img.setAttribute("id","bishopb"+i);
+		}
+		return img;
+	}
+}
