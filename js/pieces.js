@@ -118,6 +118,7 @@ function Rook(color,funcion_drag) {
 		}
 		return img;
 	}
+
 }
 
 function Bishop(color,funcion_drag) {

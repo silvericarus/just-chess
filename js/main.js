@@ -1,9 +1,13 @@
+var whitePawnsMovements = new Array();
+var blackPawnsMovements = new Array();
+
 function genWhitePawns() {
 	for (var i = 1; i <= 8; i++) {
 		let celda = document.getElementById("7,"+i);
 		var pawn = new Pawn("white","drag(event)");
 		var img = pawn.genPiece(i);
 		celda.appendChild(img);
+		
 	}
 }
 
@@ -73,15 +77,64 @@ function genBlackBishops() {
 }
 
 function drag(e) {
-	e.dataTransfer.setData("text", event.target.id);
+	e.dataTransfer.setData("text", e.target.id);
 }
 
 function allowDrag(e) {
 	e.preventDefault();
 }
 
+function colourCellYellow(initialElement, pieceId){
+	let coordinates = initialElement.parentNode.getAttribute("id")
+	if (initialElement.classList.contains("pawn")) {
+		let y = parseInt(coordinates.charAt(0));
+		let x = parseInt(coordinates.charAt(2));
+		if(document.getElementsByClassName('has-background-warning').length < 1){
+			if(initialElement.classList.contains("black")){
+				let pos_c1 = y+1;
+				let cell1 = document.getElementById(pos_c1+","+x);
+				cell1.setAttribute("class","has-background-warning");
+				if(blackPawnsMovements[pieceId] < 1){
+					//In the first movement colour another position ahead
+					let pos_c2 = pos_c1+1;
+					let cell2 = document.getElementById(pos_c2+","+x);
+					cell2.setAttribute("class","has-background-warning");
+				}
+			}else if(initialElement.classList.contains("white")){
+				let pos_c1 = y-1;
+				let cell1 = document.getElementById(pos_c1+","+x);
+				cell1.setAttribute("class","has-background-warning");
+				if(whitePawnsMovements[pieceId] < 1){
+					//In the first movement colour another position ahead
+					let pos_c2 = pos_c1-1;
+					let cell2 = document.getElementById(pos_c2+","+x);
+					cell2.setAttribute("class","has-background-warning");
+				}
+			}
+		}
+	}
+}
+
+document.ondrag = function onMovement(e) {
+	let pieceId = e.target.getAttribute('id');
+	let initialElement = document.getElementById(pieceId);
+
+	colourCellYellow(initialElement, pieceId);
+}
+
 function drop(event){
 	event.preventDefault();
+	let yellowCells = document.getElementsByClassName("has-background-warning");
+	for(var i = 1 ; i = yellowCells.length ; i++){
+		let coordinates = yellowCells[i-1].id;
+		let y = parseInt(coordinates.charAt(0));
+		let x = parseInt(coordinates.charAt(2));
+		if((x%2) == (y%2)){
+			document.getElementById(coordinates).setAttribute("class","white_cell cell");
+		}else{
+			document.getElementById(coordinates).setAttribute("class","black_cell cell");
+		}
+	}
 	let data = event.dataTransfer.getData("text");
 	let elementdata = document.getElementById(data);
 	if (elementdata.classList.contains("pawn")) {
@@ -93,6 +146,12 @@ function drop(event){
 		
 		if (pawn.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
 			event.target.appendChild(elementdata);
+			let pieceClass = elementdata.classList;
+			if(pieceClass.contains("white")){
+				whitePawnsMovements[elementdata.getAttribute("id")]++;
+			}else if(pieceClass.contains("black")){
+				blackPawnsMovements[elementdata.getAttribute("id")]++;
+			}
 		}
 	}else if(elementdata.classList.contains("rook")){
 		if(elementdata.classList.contains("black")){
@@ -154,6 +213,15 @@ window.onload = function(){
 	genBlackRooks();
 	genWhiteBishops();
 	genBlackBishops();
+	var whitePawns = document.getElementsByClassName('piece pawn white');
+	
+	for(var i = 0;i < whitePawns.length; i++){
+		whitePawnsMovements[whitePawns[i].getAttribute('id')] = 0;
+	}
+	var blackPawns = document.getElementsByClassName('piece pawn black');
+	for(var i = 0;i < blackPawns.length; i++){
+		blackPawnsMovements[blackPawns[i].getAttribute('id')] = 0;
+	}
 }
 	
 
