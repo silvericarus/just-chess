@@ -31,7 +31,7 @@ function Pawn(color,funcion_drag){
 		let pos_orig = position.split(",");
 		let pos_new = position_destiny.split(",");
 		if (color=="white") {
-			if(Math.abs(pos_new[0]-pos_orig[0])==1 || (pos_new[0]-pos_orig[0])==1 && (pos_new[1]-pos_orig[1])==1){
+			if((Math.abs(pos_new[0]-pos_orig[0])==1 && pos_new[1] - pos_orig[1] == 0) || Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
 					destroyPiece(position_destiny,"black");
@@ -41,7 +41,7 @@ function Pawn(color,funcion_drag){
 				return false;
 			}
 		}else{
-			if(Math.abs(pos_new[0]-pos_orig[0])==1 || (pos_new[0]-pos_orig[0])==1 && (pos_new[1]-pos_orig[1])==1){
+			if((Math.abs(pos_new[0]-pos_orig[0])==1 && pos_new[1] - pos_orig[1] == 0) || Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
 					destroyPiece(position_destiny,"white");
