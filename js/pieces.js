@@ -132,7 +132,8 @@ function Bishop(color,funcion_drag) {
 		let pos_orig = position.split(",");
 		let pos_new = position_destiny.split(",");
 		if (color=="white") {
-			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1]){
+			if((Math.abs(pos_new[0]-pos_orig[0])===2 && Math.abs(pos_new[1]-pos_orig[1])===1)||
+                (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===2))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
 					destroyPiece(position_destiny,"black");
@@ -142,7 +143,8 @@ function Bishop(color,funcion_drag) {
 				return false;
 			}
 		}else{
-			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1] ){
+			if((Math.abs(pos_new[0]-pos_orig[0])===2 && Math.abs(pos_new[1]-pos_orig[1])===1)||
+                (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===2))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
 					destroyPiece(position_destiny,"white");
@@ -166,6 +168,56 @@ function Bishop(color,funcion_drag) {
 		}else{
 			img.classList.add("piece","bishop","black");
 			img.setAttribute("id","bishopb"+i);
+		}
+		return img;
+	}
+}
+
+function Knight(color,funcion_drag) {
+	if(color=="white"){
+		this.image="img/knight_w.png";
+	}else{
+		this.image="img/knight_b.png";
+	}
+
+	this.checkMove = function (position,position_destiny) {
+		let pos_orig = position.split(",");
+		let pos_new = position_destiny.split(",");
+		if (color=="white") {
+			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1]){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
+					destroyPiece(position_destiny,"black");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1] ){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
+					destroyPiece(position_destiny,"white");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+	}
+
+	this.genPiece = function(i){
+		var img = document.createElement("img");
+		img.setAttribute("src",this.image);
+		img.setAttribute("draggable","true");
+		img.setAttribute("ondragstart",funcion_drag);
+		if(color=="white"){
+			img.classList.add("piece","knight","white");
+			img.setAttribute("id","knightw"+i);
+		}else{
+			img.classList.add("piece","knight","black");
+			img.setAttribute("id","knightb"+i);
 		}
 		return img;
 	}

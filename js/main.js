@@ -62,6 +62,7 @@ function genWhiteBishops() {
 	celda2.appendChild(img2);
 }
 
+
 function genBlackBishops() {
 	let celda1 = document.getElementById("1,3");
 	let celda2 = document.getElementById("1,6");
@@ -71,6 +72,32 @@ function genBlackBishops() {
 
 	var img1 = bishop1.genPiece("3");
 	var img2 = bishop2.genPiece("6");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+function genWhiteKnights() {
+	let celda1 = document.getElementById("8,2");
+	let celda2 = document.getElementById("8,7");
+
+	let knight1 = new Knight("white","drag(event)");
+	let knight2 = new Knight("white","drag(event)");
+
+	var img1 = knight1.genPiece("2");
+	var img2 = knight2.genPiece("7");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+function genBlackKnights() {
+	let celda1 = document.getElementById("1,2");
+	let celda2 = document.getElementById("1,7");
+
+	let knight1 = new Knight("black","drag(event)");
+	let knight2 = new Knight("black","drag(event)");
+
+	var img1 = knight1.genPiece("2");
+	var img2 = knight2.genPiece("7");
 
 	celda1.appendChild(img1);
 	celda2.appendChild(img2);
@@ -173,6 +200,16 @@ function drop(event){
 		if (bishop.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
 			event.target.appendChild(elementdata);
 		}
+	}else if(elementdata.classList.contains("knight")){
+		if(elementdata.classList.contains("black")){
+			var knight = new Knight("black","drag(event)");
+		}else{
+			var knight = new Knight("white","drag(event)");
+		}
+
+		if (knight.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			event.target.appendChild(elementdata);
+		}
 	}
 }
 
@@ -213,6 +250,8 @@ window.onload = function(){
 	genBlackRooks();
 	genWhiteBishops();
 	genBlackBishops();
+	genWhiteKnights();
+	genBlackKnights();
 	var whitePawns = document.getElementsByClassName('piece pawn white');
 	
 	for(var i = 0;i < whitePawns.length; i++){
