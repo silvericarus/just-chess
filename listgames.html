@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDie3gpt3WCr-3oYM3et0Wd9yRUykt2dFo",
+    authDomain: "just-chess.firebaseapp.com",
+    databaseURL: "https://just-chess.firebaseio.com",
+    projectId: "just-chess",
+    storageBucket: "",
+    messagingSenderId: "564023368211",
+    appId: "1:564023368211:web:6e9172633f496bfb"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+</script>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>State</td>
+                        </tr>
+                    </thead>
+                    <tbody id="gamestable"></tbody>
+                </table>
+            </div>
+            <button class="button is-success" onclick="findGames()">Refresh</button>
+        </div>
+    </section>
+    <script src="js/findgames.js"></script>
+</body>
+</html>
