@@ -22,8 +22,34 @@ function getCookie(cname) {
 }
 
 function startGame(id){
-    window.location = "./index.html";
+
     setCookie("gameId",id,1);
+    db.collection("games").doc(id).get().then(function(doc) {
+        if (doc.exists) {
+            var data = doc.data();
+        } else {
+            console.error("No such document!");
+        }
+    
+        if(!data.playersConnected){
+            db.collection("games").doc(id).update({"playersConnected":1}).then(function(){
+                console.log("Document successfully updated!");
+                window.location = "./index.html";
+            }).catch(function(error) {
+                console.error("Error updating document: ", error);
+            });  
+        }else if(data["playersConnected"] == 1){
+            db.collection("games").doc(id).update({"playersConnected":2}).then(function(){
+                console.log("Document successfully updated!");
+                window.location = "./index.html";
+            }).catch(function(error) {
+                console.error("Error updating document: ", error);
+            }); 
+        }
+    }).catch(function(error){
+        console.error("Error");
+    });   
+    
 }
 
 function findGames(){
@@ -35,7 +61,7 @@ function findGames(){
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            //console.log(doc.id, " => ", doc.data());
             var data = doc.data();
             var row = document.createElement("tr");
             var cellId = document.createElement("td");
