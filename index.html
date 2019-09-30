@@ -20,6 +20,48 @@ var _rollbarConfig = {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
 <link rel="stylesheet" href="css/main.css">
 <body>
+	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+	<div class="modal is-active">
+			<div class="modal-background"></div>
+			<div class="modal-content">
+						<div class="card">
+								<header class="card-header">
+									<p class="card-header-title">
+										Titulo de juego
+									</p>
+								</header>
+								<div class="card-content">
+								<div class="content">
+									<div class="field">
+											<label class="label">Nombre</label>
+											<div class="control">
+												<input class="input" type="text">
+											</div>
+												<p class="help">Escribe aquí el nombre con el que te conocerán</p>
+											</div>
+									</div>
+									<div class="field">
+											<label class="label">Equipo</label>
+											<div class="control">
+											  <label class="radio">
+												<input type="radio" name="question" checked>
+												<img src="./img/pawn_w.png">
+											  </label>
+											  <label class="radio">
+												<input type="radio" name="question">
+												<img src="./img/pawn_b.png">
+											  </label>
+											  <p class="help">Elige el equipo que usarás</p>
+											</div>
+									</div>
+								</div>
+								<footer class="card-footer">
+								<a href="#" class="card-footer-item">Guardar</a>
+								</footer>
+							</div>
+			</div>
+	</div>
 	<div class="columns">
 		<div class="column is-two-thirds has-background-primary" id="playground">
 
@@ -31,26 +73,51 @@ var _rollbarConfig = {
 	</div>
 <script type="text/javascript" src="js/pieces.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-	<!--Firebase-->
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
+<script type="text/javascript">
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+	  apiKey: "AIzaSyDie3gpt3WCr-3oYM3et0Wd9yRUykt2dFo",
+	  authDomain: "just-chess.firebaseapp.com",
+	  databaseURL: "https://just-chess.firebaseio.com",
+	  projectId: "just-chess",
+	  storageBucket: "",
+	  messagingSenderId: "564023368211",
+	  appId: "1:564023368211:web:6e9172633f496bfb"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	var db = firebase.firestore();
 
-	<!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#config-web-app -->
+	function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+    var id = getCookie("gameId");
+	db.collection("games").doc(id).get().then(function(doc){
+		if(doc.exists){
+			var data = doc.data();
+			if(data["playersConnected"]==1){
+				bloqueo();
+			}else if(data["playersConnected"]==2){
+				quitarBloqueo();
+			}
+		}else{
+			console.error("Error");
+		}
+	}).catch(function(error){
 
-	<script>
-		// Your web app's Firebase configuration
-		var firebaseConfig = {
-			apiKey: "AIzaSyDie3gpt3WCr-3oYM3et0Wd9yRUykt2dFo",
-			authDomain: "just-chess.firebaseapp.com",
-			databaseURL: "https://just-chess.firebaseio.com",
-			projectId: "just-chess",
-			storageBucket: "",
-			messagingSenderId: "564023368211",
-			appId: "1:564023368211:web:6e9172633f496bfb"
-		};
-		// Initialize Firebase
-		firebase.initializeApp(firebaseConfig);
-	</script>
+	});
+</script>
 </body>
 </html>
