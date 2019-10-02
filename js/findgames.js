@@ -34,14 +34,14 @@ function startGame(id){
         if(!data.playersConnected){
             db.collection("games").doc(id).update({"playersConnected":1}).then(function(){
                 console.log("Document successfully updated!");
-                window.location = "./index.html";
+                window.location = "./chess.html";
             }).catch(function(error) {
                 console.error("Error updating document: ", error);
             });  
         }else if(data["playersConnected"] == 1){
             db.collection("games").doc(id).update({"playersConnected":2}).then(function(){
                 console.log("Document successfully updated!");
-                window.location = "./index.html";
+                window.location = "./chess.html";
             }).catch(function(error) {
                 console.error("Error updating document: ", error);
             }); 
