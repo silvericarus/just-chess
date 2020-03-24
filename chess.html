@@ -36,20 +36,20 @@ var _rollbarConfig = {
 									<div class="field">
 											<label class="label">Nombre</label>
 											<div class="control">
-												<input class="input" type="text">
+												<input class="input" type="text" id="username">
 											</div>
 												<p class="help">Escribe aquí el nombre con el que te conocerán</p>
 											</div>
 									</div>
 									<div class="field">
 											<label class="label">Equipo</label>
-											<div class="control">
+											<div class="control" id="userteam">
 											  <label class="radio">
-												<input type="radio" name="question" checked>
+												<input type="radio" name="question" id="white_team" checked>
 												<img src="./img/pawn_w.png">
 											  </label>
 											  <label class="radio">
-												<input type="radio" name="question">
+												<input type="radio" name="question" id="black_team">
 												<img src="./img/pawn_b.png">
 											  </label>
 											  <p class="help">Elige el equipo que usarás</p>
@@ -57,7 +57,7 @@ var _rollbarConfig = {
 									</div>
 								</div>
 								<footer class="card-footer">
-								<a href="#" class="card-footer-item">Guardar</a>
+								<a onclick="saveUserInfo()" class="card-footer-item">Guardar</a>
 								</footer>
 							</div>
 			</div>

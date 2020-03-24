@@ -1,5 +1,6 @@
 var whitePawnsMovements = new Array();
 var blackPawnsMovements = new Array();
+var gameId;
 
 function genWhitePawns() {
 	for (var i = 1; i <= 8; i++) {
@@ -240,9 +241,22 @@ function drawBoard() {
 	playground.appendChild(table);
 }
 
+function saveUserInfo(){
+	var username = document.getElementById("username").value;
+	var userteam;
+
+	if(document.getElementById('white_team').checked) {
+		userteam = "white";
+	}else{
+		userteam = "black";
+	}
+
+	//TODO subir a db
+}
 
 
 window.onload = function(){
+	gameId = getCookie("gameId");
 	drawBoard();
 	genWhitePawns();
 	genBlackPawns();
