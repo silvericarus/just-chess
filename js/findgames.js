@@ -40,8 +40,12 @@ function startGame(id){
             });  
         }else if(data["playersConnected"] == 1){
             db.collection("games").doc(id).update({"playersConnected":2}).then(function(){
-                console.log("Document successfully updated!");
-                window.location = "./chess.html";
+            	db.collection("games").doc(id).update({state:"ready"}).then(function(){
+            		console.log("Document successfully updated!");
+                    window.location = "./chess.html";
+            	}).catch(function(error) {
+                console.error("Error updating document: ", error);
+            }); 
             }).catch(function(error) {
                 console.error("Error updating document: ", error);
             }); 
