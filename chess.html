@@ -19,10 +19,11 @@ var _rollbarConfig = {
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/bulma-pageloader.min.css">
 <body>
 	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
-	<div class="modal is-active">
+	<div class="modal is-active" id="modaluser">
 			<div class="modal-background"></div>
 			<div class="modal-content">
 						<div class="card">
@@ -71,6 +72,7 @@ var _rollbarConfig = {
 			<div id="whitegrave"></div>
 		</div>
 	</div>
+	<div class="pageloader is-left-to-right has-background-primary" id="pageloader"><span class="title">Esperando al otro jugador</span></div>
 <script type="text/javascript" src="js/pieces.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
@@ -103,21 +105,14 @@ var _rollbarConfig = {
     }
     return "";
 }
-    var id = getCookie("gameId");
-	db.collection("games").doc(id).get().then(function(doc){
-		if(doc.exists){
-			var data = doc.data();
-			if(data["playersConnected"]==1){
-				bloqueo();
-			}else if(data["playersConnected"]==2){
-				quitarBloqueo();
-			}
-		}else{
-			console.error("Error");
-		}
-	}).catch(function(error){
+	var id = getCookie("gameId");
 
-	});
+	if(id == ""){
+		//ID del testGround
+		id = "oXLmMgRyLmWfSVF1zfn8";
+	}
+
+
 </script>
 </body>
 </html>
