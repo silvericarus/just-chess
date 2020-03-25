@@ -241,6 +241,42 @@ function drawBoard() {
 	playground.appendChild(table);
 }
 
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+function checkUsers(){
+	setTimeout(function() {
+		db.collection("games").doc(id).get().then(function(doc){
+				if(doc.exists){
+					data = doc.data();
+					console.log(data);
+					if(data["userblack"]!= undefined && data["userwhite"]!= undefined){
+						document.getElementById("pageloader").classList.remove("is-active");
+						document.getElementById("modaluser").classList.remove("is-active");
+						db.collection("games").doc(id).update({"state":"playing"}).then(function() {
+							console.log("Document successfully updated!");
+						})
+						.catch(function(error) {
+							// The document probably doesn't exist.
+							console.error("Error updating document: ", error);
+						});
+					}else{
+						checkUsers();
+					}
+						}else{
+							console.error("Error");
+						}
+			}).catch(function(error){
+
+			});
+			
+		
+	}, 1000);
+	
+}
+
 function saveUserInfo(){
 	var username = document.getElementById("username").value;
 	var userteam;
@@ -251,12 +287,40 @@ function saveUserInfo(){
 		userteam = "black";
 	}
 
-	//TODO subir a db
+	switch(userteam){
+		case "white":
+			db.collection("games").doc(id).update({userwhite:{name:username,team:userteam}}).then(function() {
+		console.log("Document successfully updated!");
+	})
+	.catch(function(error) {
+		// The document probably doesn't exist.
+		console.error("Error updating document: ", error);
+	});
+	break;
+	case "black":
+		db.collection("games").doc(id).update({userblack:{name:username,team:userteam}}).then(function() {
+			console.log("Document successfully updated!");
+		})
+		.catch(function(error) {
+			// The document probably doesn't exist.
+			console.error("Error updating document: ", error);
+		});
+		break;
+	}
+	document.getElementById("pageloader").classList.add("is-active");
+	db.collection("games").doc(id).get().then(function(doc){
+		if(doc.exists){
+			checkUsers();
+		}else{
+			console.error("Error");
+		}
+	}).catch(function(error){
+
+	});
 }
 
 
 window.onload = function(){
-	gameId = getCookie("gameId");
 	drawBoard();
 	genWhitePawns();
 	genBlackPawns();
