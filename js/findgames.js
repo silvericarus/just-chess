@@ -72,12 +72,18 @@ function findGames(){
             var cell = document.createElement("td");
             var cellBtn = document.createElement("td");
             var btn = document.createElement("button");
+            var spanBtn = document.createElement("span");
+            var icon = document.createElement("i");
             btn.classList.add("button","primary");
+            spanBtn.classList.add("icon","is-large");
+            icon.classList.add("mdi","mdi-32px","mdi-play");
             btn.addEventListener("click",function(){
                 startGame(doc.id);
             });
             cellId.textContent = data["name"];
             cell.textContent = data["state"];
+            spanBtn.appendChild(icon);
+            btn.appendChild(spanBtn);
             cellBtn.appendChild(btn);
             row.append(cellId,cell,cellBtn);
             gamestable.append(row);
@@ -88,3 +94,18 @@ function findGames(){
     });
 }
 findGames();
+
+function createGame() {
+    var gamename = chance.country({full:true})+chance.animal({type:"zoo"});
+    gamename = gamename.replace(/[\s,\W]/g,'');
+    db.collection("games").add({
+        name:gamename,
+        state:"waiting"
+    }).then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        findGames();
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    })
+}
