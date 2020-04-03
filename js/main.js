@@ -1,6 +1,5 @@
 var whitePawnsMovements = new Array();
 var blackPawnsMovements = new Array();
-var gameId;
 
 function genWhitePawns() {
 	for (var i = 1; i <= 8; i++) {
@@ -150,6 +149,29 @@ document.ondrag = function onMovement(e) {
 	colourCellYellow(initialElement, pieceId);
 }
 
+function dbPostMovement(team,piece,origCoord,newCoord){
+	db.collection("games").doc(id).update(
+		{
+			mov: {
+				team:team,
+				piece:piece,
+				origCoord:origCoord,
+				newCoord:newCoord
+			}
+		}).then(function() {
+			console.log("Movement logged.");
+		}).catch();
+}
+
+function dbCheckMovement() {
+		db.collection("games").doc(id).onSnapshot(function(doc) {
+			var data = doc.data();
+			var movement = data["mov"];
+			var oldCell = document.getElementById(movement.origCoord);
+			var newCell = document.getElementById(movement.newCoord);
+			newCell.appendChild(oldCell.children[0]);
+		});
+}
 function drop(event){
 	event.preventDefault();
 	let yellowCells = document.getElementsByClassName("has-background-warning");
@@ -173,6 +195,7 @@ function drop(event){
 		}
 		
 		if (pawn.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			dbPostMovement(pawn.color,"pawn",elementdata.parentNode.getAttribute("id"),event.target.id);
 			event.target.appendChild(elementdata);
 			let pieceClass = elementdata.classList;
 			if(pieceClass.contains("white")){
@@ -189,6 +212,7 @@ function drop(event){
 		}
 		
 		if (rook.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			dbPostMovement(rook.color,"rook",elementdata.parentNode.getAttribute("id"),event.target.id);
 			event.target.appendChild(elementdata);
 		}
 	}else if(elementdata.classList.contains("bishop")){
@@ -199,6 +223,7 @@ function drop(event){
 		}
 		
 		if (bishop.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			dbPostMovement(bishop.color,"bishop",elementdata.parentNode.getAttribute("id"),event.target.id);
 			event.target.appendChild(elementdata);
 		}
 	}else if(elementdata.classList.contains("knight")){
@@ -209,6 +234,7 @@ function drop(event){
 		}
 
 		if (knight.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			dbPostMovement(knight.color,"knight",elementdata.parentNode.getAttribute("id"),event.target.id);
 			event.target.appendChild(elementdata);
 		}
 	}
@@ -330,6 +356,7 @@ window.onload = function(){
 	genBlackBishops();
 	genWhiteKnights();
 	genBlackKnights();
+	dbCheckMovement();
 	var whitePawns = document.getElementsByClassName('piece pawn white');
 	
 	for(var i = 0;i < whitePawns.length; i++){

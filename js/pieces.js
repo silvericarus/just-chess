@@ -21,6 +21,7 @@ function destroyPiece(position_destiny,color){
 }
 //Pieces definition
 function Pawn(color,funcion_drag){
+	this.color = color;
 	if(color=="white"){
 		this.image="img/pawn_w.png";	
 	}else{
@@ -71,6 +72,7 @@ function Pawn(color,funcion_drag){
 }
 
 function Rook(color,funcion_drag) {
+	this.color = color;
 	if(color=="white"){
 		this.image="img/rook_w.png";	
 	}else{
@@ -122,6 +124,7 @@ function Rook(color,funcion_drag) {
 }
 
 function Bishop(color,funcion_drag) {
+	this.color = color;
 	if(color=="white"){
 		this.image="img/bishop_w.png";	
 	}else{
@@ -174,6 +177,7 @@ function Bishop(color,funcion_drag) {
 }
 
 function Knight(color,funcion_drag) {
+	this.color = color;
 	if(color=="white"){
 		this.image="img/knight_w.png";
 	}else{
