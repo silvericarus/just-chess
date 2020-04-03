@@ -169,6 +169,9 @@ function dbCheckMovement() {
 			var movement = data["mov"];
 			var oldCell = document.getElementById(movement.origCoord);
 			var newCell = document.getElementById(movement.newCoord);
+			if(newCell.childElementCount > 0 && !newCell.children[0].classList.contains(movement.team)){
+				destroyPiece(movement.newCoord,movement.team);
+			}
 			newCell.appendChild(oldCell.children[0]);
 		});
 }

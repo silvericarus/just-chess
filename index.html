@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>List Games</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css"/>
 </head>
 <body>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -45,8 +46,13 @@
                     </thead>
                     <tbody id="gamestable"></tbody>
                 </table>
+            <button class="button is-warning" onclick="findGames()">Refresh</button>
+            <button title="Create new game" class="button is-success is-pulled-right" onclick="createGame()" >
+                <span class="icon is-large">
+                    <i class="mdi mdi-32px mdi-plus"></i>
+                  </span>
+            </button>
             </div>
-            <button class="button is-success" onclick="findGames()">Refresh</button>
         </div>
     </section>
     <script src="js/findgames.js"></script>
