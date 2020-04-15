@@ -102,6 +102,33 @@ function genBlackKnights() {
 	celda1.appendChild(img1);
 	celda2.appendChild(img2);
 }
+function genQueens(){
+	let celda1 = document.getElementById("8,4");
+	let celda2 = document.getElementById("1,5");
+
+	let queen1 = new Queen("white","drag(event)");
+	let queen2 = new Queen("black","drag(event)");
+
+	var img1 = queen1.genPiece("8");
+	var img2 = queen2.genPiece("1");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
+
+function genKings(){
+	let celda1 = document.getElementById("8,5");
+	let celda2 = document.getElementById("1,4");
+
+	let king1 = new King("white","drag(event)");
+	let king2 = new King("black","drag(event)");
+
+	var img1 = king1.genPiece("8");
+	var img2 = king2.genPiece("1");
+
+	celda1.appendChild(img1);
+	celda2.appendChild(img2);
+}
 
 function drag(e) {
 	e.dataTransfer.setData("text", e.target.id);
@@ -240,6 +267,28 @@ function drop(event){
 			dbPostMovement(knight.color,"knight",elementdata.parentNode.getAttribute("id"),event.target.id);
 			event.target.appendChild(elementdata);
 		}
+	}else if(elementdata.classList.contains("queen")){
+		if(elementdata.classList.contains("black")){
+			var queen = new Queen("black","drag(event)");
+		}else{
+			var queen = new Queen("white","drag(event)");
+		}
+
+		if (queen.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			dbPostMovement(queen.color,"queen",elementdata.parentNode.getAttribute("id"),event.target.id);
+			event.target.appendChild(elementdata);
+		}
+	}else if(elementdata.classList.contains("king")){
+		if(elementdata.classList.contains("black")){
+			var king = new King("black","drag(event)");
+		}else{
+			var king = new King("white","drag(event)");
+		}
+
+		if (king.checkMove(elementdata.parentNode.getAttribute("id"),event.target.id)) {
+			dbPostMovement(king.color,"king",elementdata.parentNode.getAttribute("id"),event.target.id);
+			event.target.appendChild(elementdata);
+		}
 	}
 }
 
@@ -359,6 +408,8 @@ window.onload = function(){
 	genBlackBishops();
 	genWhiteKnights();
 	genBlackKnights();
+	genQueens();
+	genKings();
 	dbCheckMovement();
 	var whitePawns = document.getElementsByClassName('piece pawn white');
 	

@@ -136,7 +136,8 @@ function Bishop(color,funcion_drag) {
 		let pos_new = position_destiny.split(",");
 		if (color=="white") {
 			if((Math.abs(pos_new[0]-pos_orig[0])===2 && Math.abs(pos_new[1]-pos_orig[1])===1)||
-                (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===2))){
+                (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===2))||
+                (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===1))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
 					destroyPiece(position_destiny,"black");
@@ -146,8 +147,7 @@ function Bishop(color,funcion_drag) {
 				return false;
 			}
 		}else{
-			if((Math.abs(pos_new[0]-pos_orig[0])===2 && Math.abs(pos_new[1]-pos_orig[1])===1)||
-                (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===2))){
+			if((Math.abs(pos_new[0]-pos_orig[0]) === Math.abs(pos_new[1]-pos_orig[1]))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
 					destroyPiece(position_destiny,"white");
@@ -225,4 +225,112 @@ function Knight(color,funcion_drag) {
 		}
 		return img;
 	}
+}
+
+function Queen(color,funcion_drag) {
+	this.color = color;
+	if(color=="white"){
+		this.image="img/queen_w.png";	
+	}else{
+		this.image="img/queen_b.png";
+	}
+	
+	this.checkMove = function (position,position_destiny) {
+		let pos_orig = position.split(",");
+		let pos_new = position_destiny.split(",");
+		if (color=="white") {
+			if((pos_new[0]==pos_orig[0] || pos_new[1]==pos_orig[1]) || 
+				((Math.abs(pos_new[0]-pos_orig[0])) === (Math.abs(pos_new[1]-pos_orig[1])))){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
+					destroyPiece(position_destiny,"black");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			if((pos_new[0]==pos_orig[0] || pos_new[1]==pos_orig[1]) || 
+				((Math.abs(pos_new[0]-pos_orig[0])) === (Math.abs(pos_new[1]-pos_orig[1])))){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
+					destroyPiece(position_destiny,"white");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+	}
+
+	this.genPiece = function(i){
+		var img = document.createElement("img");
+		img.setAttribute("src",this.image);
+		img.setAttribute("draggable","true");
+		img.setAttribute("ondragstart",funcion_drag);
+		if(color=="white"){
+			img.classList.add("piece","queen","white");
+			img.setAttribute("id","queenw"+i);
+		}else{
+			img.classList.add("piece","queen","black");
+			img.setAttribute("id","queenb"+i);
+		}
+		return img;
+	}
+
+}
+
+function King(color,funcion_drag) {
+	this.color = color;
+	if(color=="white"){
+		this.image="img/king_w.png";	
+	}else{
+		this.image="img/king_b.png";
+	}
+	
+	this.checkMove = function (position,position_destiny) {
+		let pos_orig = position.split(",");
+		let pos_new = position_destiny.split(",");
+		if (color=="white") {
+			if(Math.abs(pos_new[0]-pos_orig[0])===1 || Math.abs(pos_new[1]-pos_orig[1])===1 ||
+			Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
+					destroyPiece(position_destiny,"black");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			if(Math.abs(pos_new[0]-pos_orig[0])===1 || Math.abs(pos_new[1]-pos_orig[1])===1 ||
+			Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
+				//Execute the destroyPiece() function
+				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
+					destroyPiece(position_destiny,"white");
+				}
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+	}
+
+	this.genPiece = function(i){
+		var img = document.createElement("img");
+		img.setAttribute("src",this.image);
+		img.setAttribute("draggable","true");
+		img.setAttribute("ondragstart",funcion_drag);
+		if(color=="white"){
+			img.classList.add("piece","king","white");
+			img.setAttribute("id","kingw"+i);
+		}else{
+			img.classList.add("piece","king","black");
+			img.setAttribute("id","kingb"+i);
+		}
+		return img;
+	}
+
 }
