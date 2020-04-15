@@ -7,7 +7,7 @@ Bulma framework](https://www.bulma.io).
 
 **Plans**
 
- - Implement basic figure movement.
+ - Implement basic figure movement. (Done!)
  - Implement all the rules.
  - Implement different modes.
 
