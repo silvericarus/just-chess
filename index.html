@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List Games</title>
+    <title>Just Chess</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css"/>
@@ -33,9 +33,30 @@
   firebase.initializeApp(firebaseConfig);
   var db = firebase.firestore();
 </script>
-    <section class="hero is-primary">
+    <section class="hero is-medium is-primary-jc">
         <div class="hero-body">
             <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <figure class="image is-128x128">
+                            <img src="img/pawn_b.png">
+                        </figure>
+                    </div>
+                    <div class="column">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Voluptates, corporis similique tempore, minima neque eligendi 
+                        labore nihil laboriosam a quae nulla consequatur? 
+                        Esse odit exercitationem excepturi! Nihil minus vel veritatis!
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section class="hero is-large is-secondary-jc">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Game List</h1>
                 <table class="table is-striped is-narrow is-hoverable is-fullwidth">
                     <thead>
                         <tr>
@@ -46,8 +67,8 @@
                     </thead>
                     <tbody id="gamestable"></tbody>
                 </table>
-            <button class="button is-warning" onclick="findGames()">Refresh</button>
-            <button title="Create new game" class="button is-success is-pulled-right" onclick="createGame()" >
+            <button class="button is-primary-jc" onclick="findGames()">Refresh</button>
+            <button title="Create new game" class="button is-primary-jc is-pulled-right" onclick="createGame()" >
                 <span class="icon is-large">
                     <i class="mdi mdi-32px mdi-plus"></i>
                   </span>

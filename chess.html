@@ -20,6 +20,7 @@ var _rollbarConfig = {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
 <link rel="stylesheet" href="css/main.css"/>
 <link rel="stylesheet" href="css/bulma-pageloader.min.css"/>
+<link rel="stylesheet" href="css/bulma-divider.min.css"/>
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css"/>
 
 <body>
@@ -28,7 +29,7 @@ var _rollbarConfig = {
 	<div class="modal is-active" id="modaluser">
 			<div class="modal-background"></div>
 			<div class="modal-content">
-						<div class="card">
+						<div class="card is-secondary-jc">
 								<header class="card-header">
 									<p class="card-header-title">
 										Titulo de juego
@@ -65,16 +66,28 @@ var _rollbarConfig = {
 							</div>
 			</div>
 	</div>
-	<div class="columns">
-		<div class="column is-two-thirds has-background-primary" id="playground">
+	<section class="hero is-fullheight is-primary-jc">
+		<div class="hero-head">
+			<div class="container">
+				<h1 id="username" class="title">userName</h1>
+			</div>
+		</div>
+        <div class="hero-body">
+            <div class="container">
+				<div class="columns">
+					
+					<div class="column is-two-thirds is-primary-jc" id="playground">
 
+					</div>
+					<div class="column has-background-grey" id="grave">
+						<div id="blackgrave"></div>
+						<div id="whitegrave"></div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="column has-background-grey" id="grave">
-			<div id="blackgrave"></div>
-			<div id="whitegrave"></div>
-		</div>
-	</div>
-	<div class="pageloader is-left-to-right has-background-primary" id="pageloader"><span class="title">Esperando al otro jugador</span></div>
+	</section>
+	<div class="pageloader is-left-to-right" style="background-color: #FFD1DF;" id="pageloader"><span class="title" style="color: black;">Esperando al otro jugador</span></div>
 <script type="text/javascript" src="js/pieces.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
