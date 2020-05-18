@@ -33,7 +33,36 @@
   firebase.initializeApp(firebaseConfig);
   var db = firebase.firestore();
 </script>
-    <section class="hero is-medium is-primary-jc">
+    <section class="hero is-medium is-primary-jc" id="head">
+        <div class="hero-head is-secondary-jc">
+            <nav class="navbar">
+              <div class="container">
+                <div class="navbar-brand">
+                  <a class="navbar-item">
+                    <img src="img/pawn_b.png" alt="Logo">
+                  </a>
+                  <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </div>
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                  <div class="navbar-end">
+                    <a class="navbar-item is-active" href="#home">
+                      Home
+                    </a>
+                    <a class="navbar-item" href="#description">
+                      Description
+                    </a>
+                    <a class="navbar-item" href="#matchlist">
+                      Match List
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+        </div>
         <div class="hero-body">
             <div class="container">
                 <div class="columns">
@@ -43,20 +72,49 @@
                         </figure>
                     </div>
                     <div class="column">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Voluptates, corporis similique tempore, minima neque eligendi 
-                        labore nihil laboriosam a quae nulla consequatur? 
-                        Esse odit exercitationem excepturi! Nihil minus vel veritatis!
+                        <section id="description">
+                            <h4 class="subtitle">Description</h4>
+                            Just Chess, also stylized as JuSt Chess, is a web app that let you play chess in with another player. 
+                            It uses HTML5 with vanilla Javascript, and the Bulma framework for design. 
+                            In the current version of the game, known as 0.1.0 “The Turk”, 
+                            the first “chess-playing” machine, that wasn’t really a machine, 
+                            but was really discovered to be a person. 
+                            Likewise, this version looks like you are playing with an automatic machine, 
+                            but it’s a player. But maybe you already know that…  
+                        </section>
+                        <hr>
+                        <section>
+                            <h4 class="subtitle">Instructions</h4>
+                                If you want to create a new match:
+                                <div class="content">
+                                    <ol type="1">
+                                        <li>Click on the plus button below the match table.</li>
+                                        <li>A new match with a random name will be generated, with state “waiting”.</li>
+                                        <li>You click on the “<span class="icon is-small">
+                                            <i class="mdi mdi-play"></i>
+                                          </span>” button on that match.</li>
+                                    </ol>
+                                </div>
+                                If you want to enter an existing match:
+                                <div class="content">
+                                    <ol type="1">
+                                        <li>Refresh to check if the match is still in “waiting” state.</li>
+                                        <li>Click “<span class="icon is-small">
+                                            <i class="mdi mdi-play"></i>
+                                          </span>”.</li>
+                                    </ol>
+                                </div>
+                        </section>
                     </div>
                 </div>
                 
             </div>
         </div>
     </section>
-    <section class="hero is-large is-secondary-jc">
+    <section class="hero is-large is-secondary-jc" id="matchlist">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">Game List</h1>
+                <h1 class="title">Match List</h1>
                 <table class="table is-striped is-narrow is-hoverable is-fullwidth">
                     <thead>
                         <tr>
@@ -76,6 +134,37 @@
             </div>
         </div>
     </section>
+    <footer class="footer is-contrast-jc">
+        <div class="columns">
+            <div class="column">
+                <figure class="image is-3by1">
+                    <a href="https://bulma.io"><img src="img/made-with-bulma.png" alt="made with bulma" style="
+                    height:79px;
+                    width:307px;
+                    "></a>
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    <ul style="list-style-type:none;">
+                        <li>
+                            <a href=""><span class="is-primary-jc">History of Modifications</span></a>
+                        </li>
+                        <li>
+                            <a href="/html/thanks.html"><span class="is-primary-jc">Thanks</span></a>
+                        </li>
+                        <li>
+                            <a href=""><span class="is-primary-jc">License</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/silvericarus/just-chess"><img src="https://gh-card.dev/repos/silvericarus/just-chess.svg?fullname="></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="is-primary-jc">This project is licensed under the GNU General Public License v3.0. For more information about the license, <a>click here</a>. Silver Icarus, 2020.</span> 
+    </footer>
     <script src="js/findgames.js"></script>
 </body>
 </html>
