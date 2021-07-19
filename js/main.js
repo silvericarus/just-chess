@@ -190,16 +190,65 @@ function dbPostMovement(team,piece,origCoord,newCoord){
 		}).catch();
 }
 
+
+function dbCheckDestruction() {
+	db.collection("games").doc(id).onSnapshot(function(doc) {
+		var data = doc.data();
+		var destruction = data["destruction"];
+		if (destruction != undefined && destruction.size > 0) {
+			var team = destruction.team;
+			var piece = destruction.piece;
+			var origCoord = destruction.origCoord;
+			var newCoord = destruction.newCoord;
+			var cell = document.getElementById(origCoord);
+		if(team == "white"){
+			var graveyard = document.getElementById("whitegrave");
+		}else{
+			var graveyard = document.getElementById("blackgrave");
+		}
+
+		let img = document.createElement("img");
+
+		img.setAttribute("src",piece);
+	
+		img.classList.add(color);
+	
+		graveyard.appendChild(img);
+
+		cell.removeChild(piece);
+
+		}else{
+			return false;
+		}
+		
+	});
+}
+
 function dbCheckMovement() {
 		db.collection("games").doc(id).onSnapshot(function(doc) {
 			var data = doc.data();
 			var movement = data["mov"];
-			var oldCell = document.getElementById(movement.origCoord);
-			var newCell = document.getElementById(movement.newCoord);
-			if(newCell.childElementCount > 0 && !newCell.children[0].classList.contains(movement.team)){
-				destroyPiece(movement.newCoord,movement.team);
+			if(movement!==undefined){
+				var movtable = document.getElementById("movtable");
+				var oldCell = document.getElementById(movement.origCoord);
+				var newCell = document.getElementById(movement.newCoord);
+				if(typeof oldCell.children[0]==='object'){
+					newCell.appendChild(oldCell.children[0]);
+					var tr = document.createElement("tr");
+					var tdOrigCoord = document.createElement("td");
+					var tdNewCoord = document.createElement("td");
+					var tdTeam = document.createElement("td");
+					var tdPiece = document.createElement("td");
+					tdOrigCoord.innerHTML = movement.origCoord;
+					tdNewCoord.innerHTML = movement.newCoord;
+					tdTeam.innerHTML = movement.team;
+					tdPiece.innerHTML = movement.piece;
+					tr.append(tdOrigCoord,tdNewCoord,tdTeam,tdPiece);
+					movtable.appendChild(tr);
+				}
 			}
-			newCell.appendChild(oldCell.children[0]);
+			
+			
 		});
 }
 function drop(event){
@@ -411,6 +460,7 @@ window.onload = function(){
 	genQueens();
 	genKings();
 	dbCheckMovement();
+	dbCheckDestruction();
 	var whitePawns = document.getElementsByClassName('piece pawn white');
 	
 	for(var i = 0;i < whitePawns.length; i++){

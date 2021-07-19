@@ -1,4 +1,4 @@
-function destroyPiece(position_destiny,color){
+function destroyPiece(position_destiny,color,origCoord,sendToDB){
 	let cell = document.getElementById(position_destiny);
 
 	if(color=="white"){
@@ -18,7 +18,25 @@ function destroyPiece(position_destiny,color){
 	graveyard.appendChild(img);
 
 	cell.removeChild(piece);
+	dbPostDestruction(piece.src,color,origCoord,position_destiny)
+	return img;
+
 }
+
+function dbPostDestruction(img,team,origCoord,newCoord) {
+	db.collection("games").doc(id).update(
+		{
+			destruction: {
+				team:team,
+				piece:img,
+				origCoord:origCoord,
+				newCoord:newCoord
+			}
+		}).then(function () {
+			console.log("Destruction logged.");
+		}).catch();
+}
+
 //Pieces definition
 function Pawn(color,funcion_drag){
 	this.color = color;
@@ -35,7 +53,7 @@ function Pawn(color,funcion_drag){
 			if((Math.abs(pos_new[0]-pos_orig[0])==1 && pos_new[1] - pos_orig[1] == 0) || Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
-					destroyPiece(position_destiny,"black");
+					destroyPiece(position_destiny,"black",position,true);
 				}
 				return true;
 			}else{
@@ -45,7 +63,7 @@ function Pawn(color,funcion_drag){
 			if((Math.abs(pos_new[0]-pos_orig[0])==1 && pos_new[1] - pos_orig[1] == 0) || Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
-					destroyPiece(position_destiny,"white");
+					destroyPiece(position_destiny,"white",position,true);
 				}
 				return true;
 			}else{
@@ -86,7 +104,7 @@ function Rook(color,funcion_drag) {
 			if(pos_new[0]==pos_orig[0] || pos_new[1]==pos_orig[1]){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
-					destroyPiece(position_destiny,"black");
+					destroyPiece(position_destiny,"black",position,true);
 				}
 				return true;
 			}else{
@@ -96,7 +114,7 @@ function Rook(color,funcion_drag) {
 			if(pos_new[0]==pos_orig[0] || pos_new[1]==pos_orig[1] ){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
-					destroyPiece(position_destiny,"white");
+					destroyPiece(position_destiny,"white",position,true);
 				}
 				return true;
 			}else{
@@ -140,7 +158,7 @@ function Bishop(color,funcion_drag) {
                 (Math.abs(pos_new[0]-pos_orig[0]===1)&& Math.abs(pos_new[1]-pos_orig[1]===1))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
-					destroyPiece(position_destiny,"black");
+					destroyPiece(position_destiny,"black",position,true);
 				}
 				return true;
 			}else{
@@ -150,7 +168,7 @@ function Bishop(color,funcion_drag) {
 			if((Math.abs(pos_new[0]-pos_orig[0]) === Math.abs(pos_new[1]-pos_orig[1]))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
-					destroyPiece(position_destiny,"white");
+					destroyPiece(position_destiny,"white",position,true);
 				}
 				return true;
 			}else{
@@ -191,7 +209,7 @@ function Knight(color,funcion_drag) {
 			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1]){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
-					destroyPiece(position_destiny,"black");
+					destroyPiece(position_destiny,"black",position,true);
 				}
 				return true;
 			}else{
@@ -201,7 +219,7 @@ function Knight(color,funcion_drag) {
 			if(pos_new[0]!=pos_orig[0] && pos_new[1]!=pos_orig[1] ){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
-					destroyPiece(position_destiny,"white");
+					destroyPiece(position_destiny,"white",position,true);
 				}
 				return true;
 			}else{
@@ -243,7 +261,7 @@ function Queen(color,funcion_drag) {
 				((Math.abs(pos_new[0]-pos_orig[0])) === (Math.abs(pos_new[1]-pos_orig[1])))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
-					destroyPiece(position_destiny,"black");
+					destroyPiece(position_destiny,"black",position,true);
 				}
 				return true;
 			}else{
@@ -254,7 +272,7 @@ function Queen(color,funcion_drag) {
 				((Math.abs(pos_new[0]-pos_orig[0])) === (Math.abs(pos_new[1]-pos_orig[1])))){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
-					destroyPiece(position_destiny,"white");
+					destroyPiece(position_destiny,"white",position,true);
 				}
 				return true;
 			}else{
@@ -297,7 +315,7 @@ function King(color,funcion_drag) {
 			Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("black"))){
-					destroyPiece(position_destiny,"black");
+					destroyPiece(position_destiny,"black",position,true);
 				}
 				return true;
 			}else{
@@ -308,7 +326,7 @@ function King(color,funcion_drag) {
 			Math.abs(pos_new[0]-pos_orig[0])==1 && Math.abs(pos_new[1]-pos_orig[1])==1){
 				//Execute the destroyPiece() function
 				if( (document.getElementById(position_destiny).getElementsByTagName("img").length > 0 && document.getElementById(position_destiny).getElementsByTagName("img")[0].classList.contains("white"))){
-					destroyPiece(position_destiny,"white");
+					destroyPiece(position_destiny,"white",position,true);
 				}
 				return true;
 			}else{
